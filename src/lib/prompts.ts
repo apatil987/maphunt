@@ -1,0 +1,83 @@
+import type { GameMode, GamePrompt } from '@/types'
+
+const PROMPTS: Record<GameMode, Omit<GamePrompt, 'mode'>[]> = {
+  normal: [
+    { text: 'A church with a clock tower', category: 'object' },
+    { text: 'A red fire hydrant', category: 'literal' },
+    { text: 'A blue front door', category: 'literal' },
+    { text: 'A statue of a person', category: 'object' },
+    { text: 'A working payphone', category: 'object' },
+    { text: 'A yellow taxi cab', category: 'literal' },
+    { text: 'A building with a mural painted on it', category: 'object' },
+    { text: 'A fountain in a public square', category: 'object' },
+    { text: 'A red double-decker bus', category: 'literal' },
+    { text: 'A wooden fence around a house', category: 'object' },
+    { text: 'A green park bench', category: 'literal' },
+    { text: 'A statue of an animal', category: 'object' },
+    { text: 'A pink house', category: 'literal' },
+    { text: 'A lighthouse', category: 'object' },
+    { text: 'A windmill', category: 'object' },
+    { text: 'An orange traffic cone', category: 'literal' },
+    { text: 'A newspaper stand or vending box', category: 'object' },
+    { text: 'A set of outdoor stairs with a colorful railing', category: 'object' },
+    { text: 'A basketball hoop on a residential street', category: 'object' },
+    { text: 'A painted crosswalk (not plain white)', category: 'object' },
+    { text: 'A restaurant with outdoor seating', category: 'object' },
+  ],
+
+  chaos: [
+    { text: 'A building that looks embarrassed', category: 'chaos' },
+    { text: 'Something a pigeon would call home', category: 'chaos' },
+    { text: 'A mailbox that looks lonely', category: 'chaos' },
+    { text: 'A car that has clearly given up', category: 'chaos' },
+    { text: 'A fence having an identity crisis', category: 'chaos' },
+    { text: 'Something a raccoon would consider luxury real estate', category: 'chaos' },
+    { text: 'A tree that is doing too much', category: 'chaos' },
+    { text: 'A building that looks like it is judging you', category: 'chaos' },
+    { text: 'Something that should not exist but does', category: 'chaos' },
+    { text: 'A door that goes nowhere', category: 'chaos' },
+    { text: 'A sign with too much going on', category: 'chaos' },
+    { text: 'Something that looks like it was placed there as a dare', category: 'chaos' },
+    { text: 'A vehicle that has lived a hard life', category: 'chaos' },
+    { text: 'A building addition that the original architect would cry about', category: 'chaos' },
+    { text: 'Something that is aggressively beige', category: 'chaos' },
+    { text: 'A rooftop with something unexpected on it', category: 'chaos' },
+    { text: 'A statue that looks like it regrets its choices', category: 'chaos' },
+    { text: 'An alley that has main character energy', category: 'chaos' },
+    { text: 'Something wearing a tarp like a cape', category: 'chaos' },
+    { text: 'A parking lot that is having a moment', category: 'chaos' },
+    { text: 'A shrub that has been trimmed into something suspicious', category: 'chaos' },
+    { text: 'A window that is clearly the house\'s eyes', category: 'chaos' },
+  ],
+
+  speed: [
+    { text: 'A stop sign', category: 'literal' },
+    { text: 'A parked car', category: 'literal' },
+    { text: 'A traffic light', category: 'literal' },
+    { text: 'A tree on a sidewalk', category: 'literal' },
+    { text: 'A white van', category: 'literal' },
+    { text: 'A street lamp', category: 'literal' },
+    { text: 'A speed limit sign', category: 'literal' },
+    { text: 'A pedestrian crossing sign', category: 'literal' },
+    { text: 'A fire escape on a building', category: 'object' },
+    { text: 'A parked bicycle', category: 'object' },
+    { text: 'A rubbish bin on the street', category: 'object' },
+    { text: 'A bus stop', category: 'object' },
+    { text: 'A shop window display', category: 'object' },
+    { text: 'A shadow on the ground', category: 'literal' },
+    { text: 'A crosswalk', category: 'object' },
+    { text: 'A house number', category: 'object' },
+    { text: 'A parking meter', category: 'object' },
+    { text: 'A puddle', category: 'literal' },
+    { text: 'A manhole cover', category: 'object' },
+    { text: 'A no parking sign', category: 'literal' },
+    { text: 'A building entrance with steps', category: 'object' },
+    { text: 'A drain on the side of the road', category: 'object' },
+  ],
+}
+
+export function pickPrompt(mode: GameMode): GamePrompt {
+  const list = PROMPTS[mode]
+  const pick = list[Math.floor(Math.random() * list.length)]
+  return { ...pick, mode }
+}
