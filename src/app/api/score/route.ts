@@ -2,6 +2,8 @@ import sharp from 'sharp'
 import type { GameMode } from '@/types'
 import { scoreSubmission } from '@/lib/ai'
 
+export const config = { api: { bodyParser: { sizeLimit: '10mb' } } }
+
 export async function POST(request: Request) {
   const form = await request.formData()
   const file = form.get('file') as File | null

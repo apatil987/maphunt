@@ -3,6 +3,7 @@
 import { useState, useRef } from 'react'
 import type { GameMode, GamePrompt, ScoreResult } from '@/types'
 import { saveResult } from '@/lib/history'
+import { compressImage } from '@/lib/compress'
 import ModeSelect from './ModeSelect'
 import LoadingScreen from './LoadingScreen'
 import ScoreCard from './ScoreCard'
@@ -50,8 +51,9 @@ export default function GameClient() {
     if (!f || !prompt) return
     setError(null)
     setPhase('scoring')
+    const compressed = await compressImage(f)
     const fd = new FormData()
-    fd.append('file', f)
+    fd.append('file', compressed, 'find.jpg')
     fd.append('prompt', prompt.text)
     fd.append('mode', mode)
     const res = await fetch('/api/score', { method: 'POST', body: fd })
