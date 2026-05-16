@@ -2,9 +2,11 @@
 
 import { useState, useRef } from 'react'
 import type { GameMode, GamePrompt, ScoreResult } from '@/types'
+import { saveResult } from '@/lib/history'
 import ModeSelect from './ModeSelect'
 import LoadingScreen from './LoadingScreen'
 import ScoreCard from './ScoreCard'
+import RecentScores from './RecentScores'
 
 type Phase = 'idle' | 'mode-select' | 'fetching-prompt' | 'prompt' | 'scoring' | 'result'
 
@@ -58,7 +60,9 @@ export default function GameClient() {
       setPhase('prompt')
       return
     }
-    setResult(await res.json())
+    const data: ScoreResult = await res.json()
+    saveResult({ prompt: prompt.text, mode, score: data.total, timestamp: Date.now() })
+    setResult(data)
     setPhase('result')
   }
 
@@ -150,6 +154,7 @@ export default function GameClient() {
       >
         Start Hunt →
       </button>
+      <RecentScores />
     </div>
   )
 }
